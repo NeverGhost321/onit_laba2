@@ -1,5 +1,6 @@
 import pytest
 from app import app
+import json
 
 @pytest.fixture
 def client():
@@ -8,7 +9,8 @@ def client():
         yield client
 
 def test_health(client):
-    """Функциональный тест healthcheck"""
     rv = client.get('/health')
     assert rv.status_code == 200
-    assert rv.data == b'OK'
+    data = json.loads(rv.data)
+    assert data['status'] == 'healthy'
+    assert data['version'] == '1.2.0'

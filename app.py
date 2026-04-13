@@ -101,10 +101,11 @@ def delete(task_id):
 @app.route('/health')
 def health():
     """Healthcheck endpoint для Docker и мониторинга"""
-    return {"'OK', 200"}
-
+    return {"status": "healthy", "version": "1.2.0"}, 200
+#return {"status": "healthy", "version": "1.2.0"}, 200
 if __name__ == '__main__':
     with app.app_context():
         db.create_all()
     # debug=False для продакшена, можно вынести в env
     app.run(host='0.0.0.0', port=5000, debug=os.getenv('FLASK_DEBUG', 'False').lower() == 'true')
+    

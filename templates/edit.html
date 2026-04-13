@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Редактирование задачи</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; max-width: 600px; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; }
+        input[type="text"], textarea { 
+            width: 100%; padding: 8px; box-sizing: border-box; 
+            border: 1px solid #ccc; border-radius: 4px;
+        }
+        textarea { min-height: 80px; resize: vertical; }
+        .buttons { margin-top: 20px; }
+        button { 
+            padding: 10px 20px; background: #4CAF50; color: white; 
+            border: none; border-radius: 4px; cursor: pointer; 
+        }
+        button.cancel { 
+            background: #999; margin-left: 10px; 
+        }
+        .flash { 
+            padding: 10px; margin-bottom: 15px; border-radius: 4px; 
+        }
+        .flash.error { background: #ffebee; color: #c62828; }
+        .flash.success { background: #e8f5e9; color: #2e7d32; }
+    </style>
+</head>
+<body>
+    <h1>✏️ Редактирование задачи</h1>
+    
+    <!-- Flash сообщения -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="flash {{ category }}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    
+    <form method="post" action="/edit/{{ task.id }}">
+        <div class="form-group">
+            <label for="title">Название задачи *</label>
+            <input type="text" id="title" name="title" value="{{ task.title }}" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="description">Описание</label>
+            <textarea id="description" name="description">{{ task.description }}</textarea>
+        </div>
+        
+        <div class="buttons">
+            <button type="submit">💾 Сохранить изменения</button>
+            <a href="{{ url_for('index') }}"><button type="button" class="cancel">↩️ Отмена</button></a>
+        </div>
+    </form>
+    
+    <p style="margin-top: 30px; font-size: 0.9em; color: #666;">
+        <strong>ID задачи:</strong> {{ task.id }} | 
+        <strong>Статус:</strong> {% if task.completed %}✅ Выполнено{% else %}⏳ В процессе{% endif %}
+    </p>
+</body>
+</html>
