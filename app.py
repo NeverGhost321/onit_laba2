@@ -95,13 +95,13 @@ def delete(task_id):
     if task:
         db.session.delete(task)
         db.session.commit()
-        flash('Задача удаленаasd!', 'success')
+        flash('Задача удалена!', 'success')
     return redirect(url_for('index'))
 
 @app.route('/health')
 def health():
     """Healthcheck endpoint для Docker и мониторинга"""
-    return {"status": "healthy", "version" : "1.2.0"}, 200
+    return {"'OK', 200"}
 
 if __name__ == '__main__':
     with app.app_context():
