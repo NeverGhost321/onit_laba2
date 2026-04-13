@@ -95,7 +95,7 @@ def delete(task_id):
     if task:
         db.session.delete(task)
         db.session.commit()
-        flash('Задача удалена!', 'success')
+        flash('Задача удаленаasd!', 'success')
     return redirect(url_for('index'))
 
 @app.route('/health')
