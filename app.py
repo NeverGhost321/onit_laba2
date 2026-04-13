@@ -101,7 +101,7 @@ def delete(task_id):
 @app.route('/health')
 def health():
     """Healthcheck endpoint для Docker и мониторинга"""
-    return {"status": "healthy", "version": "1.2.0"}, 200
+    return {"'OK', 200"}
 #return {"status": "healthy", "version": "1.2.0"}, 200
 if __name__ == '__main__':
     with app.app_context():
